@@ -1,0 +1,65 @@
+<idea-plugin>
+    <id>com.fjut.MoleculerHelper</id>
+    <name>MoleculerHelp</name>
+    <vendor email="3078218582@qq.com">FJUT</vendor>
+    <description>
+        <![CDATA[
+            <h2>Moleculer Helper</h2>
+            <h3>实现方法跳转</h3>
+            <ul>
+                <li>Mac: <code>⌘ + Click</code></li>
+                <li>Windows: <code>Ctrl + Click</code></li>
+            </ul>
+            <h3>重新扫描服务</h3>
+            <ul>
+                <li>鼠标右键，点击"重新扫描 Moleculer 服务"</li>
+            </ul>
+            <h3>方法调用查看</h3>
+            <ul>
+                <li>选中要查看的方法，鼠标右键，点击"查看方法调用"</li>
+            </ul>
+         ]]>
+    </description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.lang</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!--项目初始化执行-->
+        <postStartupActivity implementation="com.fjut.moleculerhelper.config.Init"/>
+
+        <!--定义气泡弹出通知-->
+        <notificationGroup id="Moleculer Helper" displayType="BALLOON" />
+    </extensions>
+
+    <actions>
+        <!--添加快捷键监听-->
+        <!--        <action id="MoleculerHelp.RescanServices"-->
+        <!--                class="com.fjut.moleculerhelp.RescanServicesAction"-->
+        <!--                text="Rescan Moleculer Services"-->
+        <!--                description="Rescan all Moleculer services in the project">-->
+        <!--            <add-to-group group-id="ToolsMenu" anchor="last"/>-->
+        <!--            &lt;!&ndash; 修改为 ctrl shift L &ndash;&gt;-->
+        <!--            <keyboard-shortcut keymap="$default" first-keystroke="control shift L"/>-->
+        <!--            &lt;!&ndash; 为 Mac 添加额外的映射 &ndash;&gt;-->
+        <!--            <keyboard-shortcut keymap="Mac OS X" first-keystroke="meta shift L"/>-->
+        <!--            <keyboard-shortcut keymap="Mac OS X 10.5+" first-keystroke="meta shift L"/>-->
+        <!--        </action>-->
+
+        <!--鼠标右键添加操作：重新扫描 Moleculer 服务-->
+        <action id="MoleculerHelper.ListenClickToRescanFile"
+                class="com.fjut.moleculerhelper.listener.ListenClickToRescanFile"
+                text="重新扫描 Moleculer 服务"
+                description="重新扫描 Moleculer 服务">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+
+        <!--鼠标右键添加操作：查看选择方法在何处被调用-->
+        <action id="MoleculerHelp.ListenClickToSearchMethodCall"
+                class="com.fjut.moleculerhelper.listener.ListenClickToSearchMethodCall"
+                text="查看方法调用"
+                description="查看方法调用">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+    </actions>
+</idea-plugin>
